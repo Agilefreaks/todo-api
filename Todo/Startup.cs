@@ -29,7 +29,7 @@ namespace Todo
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Todo API", Version = "v1" });
             });
 
             services.AddScoped<AppDbContext>()
@@ -43,7 +43,7 @@ namespace Todo
             
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API V1");
                 c.RoutePrefix = string.Empty;
             });
 
