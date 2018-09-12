@@ -1,10 +1,12 @@
-﻿using JsonApiDotNetCore.Extensions;
+﻿using System.Reflection;
+using JsonApiDotNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Todo
 {
@@ -17,8 +19,7 @@ namespace Todo
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
@@ -26,13 +27,26 @@ namespace Todo
                 options.UseSqlServer(Configuration.GetConnectionString(ToDoDatabase));
             }, ServiceLifetime.Transient);
 
-            services.AddScoped<AppDbContext>();
-            services.AddJsonApi<AppDbContext>();
-        }
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            services.AddScoped<AppDbContext>()
+                .AddJsonApi<AppDbContext>()
+                .AddMvc();
+        }
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext context)
         {
+            app.UseSwagger();
+            
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
+
             context.Database.EnsureCreated();
             if (context.Todos.Any() == false)
             {
