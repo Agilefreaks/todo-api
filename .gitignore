@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Todo/v15/Server/sqlite3
+/.vs/config
+/Todo/bin/Debug/netcoreapp2.0
+/Todo/obj
+/Todo/bin/Debug/netcoreapp2.1
