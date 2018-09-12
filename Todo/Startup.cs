@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using JsonApiDotNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Todo
 {
     public class Startup
     {
+        private const string ToDoDatabase = "TodoDB";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,18 +21,36 @@ namespace Todo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString(ToDoDatabase));
+            }, ServiceLifetime.Transient);
+
+            services.AddScoped<AppDbContext>();
+            services.AddJsonApi<AppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext context)
         {
-            if (env.IsDevelopment())
+            context.Database.EnsureCreated();
+            if (context.Todos.Any() == false)
             {
-                app.UseDeveloperExceptionPage();
-            }
+                context.Todos.Add(new Models.Todo()
+                { 
+                    Content = "First Todo",
+                    IsDone = true
 
-            app.UseMvc();
+                });
+                context.Todos.Add(new Models.Todo()
+                {
+                    Content = "This is something to do.",
+                    IsDone = false
+
+                });
+                context.SaveChanges();
+            }
+            app.UseJsonApi();
         }
     }
 }
