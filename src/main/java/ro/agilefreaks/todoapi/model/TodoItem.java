@@ -5,10 +5,15 @@ import com.github.jasminb.jsonapi.annotations.Type;
 
 @Type("TodoItem")
 public class TodoItem {
-    boolean complete;
+    boolean complete = false;
     @Id
     private String id;
     private String title;
+
+    public TodoItem(String id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 
     public String getId() {
         return id;
