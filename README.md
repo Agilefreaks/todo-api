@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Plan
 
 Take stories out of the backlog:
@@ -51,6 +50,3 @@ Don't work on this out of the office, you can work on other related projects but
 
  - `node_modules\.bin\eslint .`
 
-=======
-Todo-list app built using Node & Express
->>>>>>> Initial commit
