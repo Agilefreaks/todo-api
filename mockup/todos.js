@@ -10,6 +10,6 @@ var TodoSerializer = new JSONAPISerializer('todos', {
   attributes: ['value']
 });
 
-var todos = TodoSerializer.serialize(todos);
+var serializedTodos = TodoSerializer.serialize(todos);
 
-module.exports = todos;
+module.exports = serializedTodos;
