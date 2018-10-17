@@ -1,13 +1,14 @@
 var todos = [
-    { id: 1, value: "Walk dog" },
-    { id: 2, value: "Buy milk" },
-    { id: 3, value: "Take out trash" },
+    { id: 1, text: "Walk dog", checked: true },
+    { id: 2, text: "Buy milk", checked: true },
+    { id: 3, text: "Take out trash", checked: true },
+    { id: 4, text: "World domination", checked: false },
 ]
 
 var JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 var TodoSerializer = new JSONAPISerializer('todos', {
-  attributes: ['value']
+  attributes: ['text', 'checked']
 });
 
 var serializedTodos = TodoSerializer.serialize(todos);
