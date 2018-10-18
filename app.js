@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.get('/v1/status', (req, res) => res.status(204).send(''));
+var todosRouter = require('./routes/todosRouter')
 
+app.use('/v1', todosRouter)
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 module.exports = app
