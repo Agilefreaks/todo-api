@@ -9,7 +9,7 @@ const todosController = require('../../controllers/todosController');
 
 describe("TodosController", function () {
     describe("getTodos", function () {
-        getOutput = function(todos) {
+        getOutput = function (todos) {
             let repository = {};
             repository.getTodos = () => todos;
 
@@ -23,10 +23,10 @@ describe("TodosController", function () {
             todosController.getTodos(repository)(req, res);
 
             let output = res._getData();
-            return output = new JSONAPIDeserializer().deserialize(output)
+            return output
         }
 
-        describe("when the list contains todos", function () { 
+        describe("when the list contains todos", function () {
             it("returns the list of todos", function () {
 
                 let todos = [
@@ -36,14 +36,35 @@ describe("TodosController", function () {
 
                 let output = getOutput(todos);
 
-                expect(output).to.eventually.deep.equal(todos);
+                expect(output).to.deep.equal({
+                    data: [
+                        {
+                            type: "todo",
+                            id: 1,
+                            attributes: {
+                                text: "Walk dog",
+                                done: true
+                            }
+                        },
+                        {
+                            type: "todo",
+                            id: 2,
+                            attributes: {
+                                text: "World domination",
+                                done: false
+                            }
+                        }
+                    ]
+                });
             });
         });
 
         describe("when the list contains no todos", function () {
             it("returns an empty list", function () {
                 let output = getOutput([]);
-                expect(output).to.eventually.be.empty;
+                expect(output).to.deep.equal({
+                    data: []
+                });
             });
         });
     });

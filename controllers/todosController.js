@@ -10,7 +10,8 @@ serialize = function(input) {
   var JSONAPISerializer = require('jsonapi-serializer').Serializer;
   
   var TodoSerializer = new JSONAPISerializer('todo', {
-    attributes: ['text', 'done']
+    attributes: ['text', 'done', 'pluralizeType'],
+    pluralizeType: false
   });
 
   return TodoSerializer.serialize(input);
