@@ -7,6 +7,6 @@ var statusController = require('../controllers/statusController');
 var todosController = require('../controllers/todosController');
 
 router.get('/status', statusController.doStatus);
-router.get('/todos', todosController.getTodos((todosRepository)));
+router.get('/todos', todosController.getTodos(todosRepository));
 
 module.exports = router;

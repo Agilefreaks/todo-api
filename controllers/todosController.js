@@ -9,8 +9,8 @@ exports.getTodos = function(repository) {
 serialize = function(input) {
   var JSONAPISerializer = require('jsonapi-serializer').Serializer;
   
-  var TodoSerializer = new JSONAPISerializer('todos', {
-    attributes: ['text', 'checked']
+  var TodoSerializer = new JSONAPISerializer('todo', {
+    attributes: ['text', 'done']
   });
 
   return TodoSerializer.serialize(input);

@@ -1,6 +1,5 @@
 const JSONAPIDeserializer = require("jsonapi-serializer").Deserializer;
 const httpMocks = require("node-mocks-http");
-const sinon = require("sinon");
 const chai = require("chai");
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
@@ -9,12 +8,9 @@ const todosController = require('../../controllers/todosController');
 
 describe("TodosController", function () {
     describe("getTodos", function () {
-        getOutput = function(testRepository) {
-            let stub = sinon.stub();
-            stub.returns(testRepository);
-
+        getOutput = function(todos) {
             let repository = {};
-            repository.getTodos = stub;
+            repository.getTodos = () => todos;
 
             let req = httpMocks.createRequest({
                 method: 'GET',
@@ -31,16 +27,14 @@ describe("TodosController", function () {
 
         describe("when the list contains todos", function () { 
             it("returns the list of todos", function () {
-                let repository = [
-                    { id: 1, text: 'Study jutsu', checked: true },
-                    { id: 2, text: 'Take pictures of Mona Lisa', checked: true },
-                    { id: 3, text: 'Fix bug #5127', checked: true },
-                    { id: 4, text: 'World domination', checked: true }
+                let todos = [
+                    { id: 1, text: 'Study jutsu', done: true },
+                    { id: 2, text: 'Take pictures of Mona Lisa', done: false }
                 ];
 
-                let output = getOutput(repository);
+                let output = getOutput(todos);
 
-                expect(output).to.eventually.deep.equal(repository);
+                expect(output).to.eventually.deep.equal(todos);
             });
         });
 
