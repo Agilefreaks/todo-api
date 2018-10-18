@@ -1,9 +1,9 @@
-var todosRepository = require('../repository/todosRepository')
-
-exports.getTodos = function (_, res) {
-  var todos = serialize(todosRepository.getTodos());
-  res.header('Content-Type', 'application/vnd.api+json');
-  res.send(todos);
+exports.getTodos = function(repository) {
+  return function (_, res) {
+    var todos = serialize(repository.getTodos());
+    res.header('Content-Type', 'application/vnd.api+json');
+    res.send(todos);
+  } 
 }
 
 serialize = function(input) {
