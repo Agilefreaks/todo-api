@@ -4,6 +4,7 @@ const chai = require("chai");
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
 
+const Todo = require('../../model/todosModel');
 const todosController = require('../../controllers/todosController');
 
 describe("TodosController", function () {
@@ -27,9 +28,10 @@ describe("TodosController", function () {
 
         describe("when the list contains todos", function () { 
             it("returns the list of todos", function () {
+
                 let todos = [
-                    { id: 1, text: 'Study jutsu', done: true },
-                    { id: 2, text: 'Take pictures of Mona Lisa', done: false }
+                    new Todo(1, "Walk dog", true),
+                    new Todo(2, "World domination", false)
                 ];
 
                 let output = getOutput(todos);

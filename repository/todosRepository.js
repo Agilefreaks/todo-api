@@ -1,8 +1,8 @@
+let Todo = require('../model/todosModel');
+
 var todos = [
-    {id: 1, text: 'Buy milk', done: true},
-    {id: 2, text: 'Walk skunk', done: true},
-    {id: 3, text: 'Take out trash', done: true},
-    {id: 4, text: 'World domination', done: true}
+  new Todo(1, 'Eat broccoli', true),
+  new Todo(2, 'Take out trash', false)
 ]
 
 exports.getTodos = function() {
