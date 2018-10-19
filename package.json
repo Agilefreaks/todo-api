@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "mocha test/**/*.js -w --recursive"
+
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +15,6 @@
     "mocha": "^5.2.0"
   },
   "devDependencies": {
-    "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "jsonapi-serializer": "^3.6.1",

@@ -1,5 +1,3 @@
-var Todo = require('../model/todosModel');
-
 var JSONAPISerializer = require('jsonapi-serializer').Serializer;
 var JSONAPIDeserializer = require('jsonapi-serializer').Deserializer;
 

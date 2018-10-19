@@ -27,7 +27,6 @@ describe("TodosController", () => {
 
         describe("when the list contains todos", () => {
             it("returns the list of todos", () => {
-
                 let todos = [
                     new Todo(1, "Walk dog", true),
                     new Todo(2, "World domination", false)

@@ -49,4 +49,3 @@ Don't work on this out of the office, you can work on other related projects but
 # Running linting
 
  - `node_modules\.bin\eslint .`
-
